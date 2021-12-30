@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OneKalender</string>
+    <string name="Jan">Januar</string>
+    <string name="Feb">Februar</string>
+    <string name="Mar">März</string>
+    <string name="Apr">April</string>
+    <string name="May">Mai</string>
+    <string name="Jun">Juni</string>
+    <string name="Jul">Juli</string>
+    <string name="Aug">August</string>
+    <string name="Sep">September</string>
+    <string name="Oct">Oktober</string>
+    <string name="Nov">November</string>
+    <string name="Dec">Dezember</string>
+</resources>
