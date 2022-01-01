@@ -2,9 +2,11 @@ package com.example.onekalender;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,7 +16,7 @@ import java.time.Month;
 
 public class MainActivity extends AppCompatActivity {
    private final LocalDateTime aktuellesLokalesDatumMitZeit = LocalDateTime.now();
-   private LocalDate geändertesDatum = LocalDateTime.from(aktuellesLokalesDatumMitZeit).toLocalDate();
+   private LocalDate geaendertesDatum = LocalDateTime.from(aktuellesLokalesDatumMitZeit).toLocalDate();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView textJahr = findViewById(R.id.textViewJahr);
-        textJahr.setText("" + geändertesDatum.getYear());
+        textJahr.setText("" + geaendertesDatum.getYear());
 
         // Datumsberechnung
 
@@ -34,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         pfeilLinks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                geändertesDatum = geändertesDatum.minusMonths(1);
+                geaendertesDatum = geaendertesDatum.minusMonths(1);
 
-                textMonat.setText(getMonthFromVal(geändertesDatum.getMonthValue()));
-                textJahr.setText("" + geändertesDatum.getYear());
+                textMonat.setText(getMonthFromVal(geaendertesDatum.getMonthValue()));
+                textJahr.setText("" + geaendertesDatum.getYear());
             }
 
         });
@@ -46,12 +48,16 @@ public class MainActivity extends AppCompatActivity {
         pfeilRechts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                geändertesDatum = geändertesDatum.plusMonths(1);
+                geaendertesDatum = geaendertesDatum.plusMonths(1);
 
-                textMonat.setText(getMonthFromVal(geändertesDatum.getMonthValue()));
-                textJahr.setText("" + geändertesDatum.getYear());
+                textMonat.setText(getMonthFromVal(geaendertesDatum.getMonthValue()));
+                textJahr.setText("" + geaendertesDatum.getYear());
             }
         });
+
+        // TageTabelle bearbeiten
+        RecyclerView kalendermonat = findViewById(R.id.tagetabelle);
+        kalendermonat.setAdapter(new MonatskalenderAdapter());
 
 
     }
@@ -59,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Diese Methode gibt den Monatsnahmen aus dem Value (Int) zurück.
      * 1~Jan to 12~Dez.
-     * @param monthValue
-     * @return
+     * @param monthValue Interger Repräsentiert 1 bis 12 Monatsnamen
+     * @return Monatsnamen
      */
     @NonNull
     private String getMonthFromVal(int monthValue) {
