@@ -9,8 +9,16 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
+
 public class MonatskalenderAdapter extends RecyclerView.Adapter<KalenderTagViewHolder> {
 
+
+    private LocalDate datum;
+
+    public MonatskalenderAdapter(LocalDate geaendertesDatum) {
+        this.datum = geaendertesDatum;
+    }
 
     @NonNull
     @Override
@@ -27,7 +35,11 @@ public class MonatskalenderAdapter extends RecyclerView.Adapter<KalenderTagViewH
 
     @Override
     public int getItemCount() {
-        return 31;
+        return datum.lengthOfMonth();
     }
 
+
+    public void setNewDataset(LocalDate geaendertesDatum) {
+        this.datum = geaendertesDatum;
+    }
 }

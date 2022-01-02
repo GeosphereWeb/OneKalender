@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 
 public class MainActivity extends AppCompatActivity {
-   private final LocalDateTime aktuellesLokalesDatumMitZeit = LocalDateTime.now();
-   private LocalDate geaendertesDatum = LocalDateTime.from(aktuellesLokalesDatumMitZeit).toLocalDate();
+    private final LocalDateTime aktuellesLokalesDatumMitZeit = LocalDateTime.now();
+    private LocalDate geaendertesDatum = LocalDateTime.from(aktuellesLokalesDatumMitZeit).toLocalDate();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +29,17 @@ public class MainActivity extends AppCompatActivity {
         textJahr.setText("" + geaendertesDatum.getYear());
 
         // Datumsberechnung
-
         TextView textMonat = findViewById(R.id.textViewMonat);
         Month aktMonth = aktuellesLokalesDatumMitZeit.getMonth();
         textMonat.setText(aktMonth.toString());
 
-        Button pfeilLinks= findViewById(R.id.buttonPfeilLinks);
+        // TageTabelle bearbeiten
+        RecyclerView kalendermonat = findViewById(R.id.tagetabelle);
+//        kalendermonat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        kalendermonat.setLayoutManager(new GridLayoutManager(this, 7));
+        kalendermonat.setAdapter(new MonatskalenderAdapter(geaendertesDatum));
+
+        Button pfeilLinks = findViewById(R.id.buttonPfeilLinks);
         pfeilLinks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,11 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
                 textMonat.setText(getMonthFromVal(geaendertesDatum.getMonthValue()));
                 textJahr.setText("" + geaendertesDatum.getYear());
+
+                MonatskalenderAdapter monatskalenderAdapter = (MonatskalenderAdapter)kalendermonat.getAdapter();
+                monatskalenderAdapter.setNewDataset(geaendertesDatum);
+                kalendermonat.getAdapter().notifyDataSetChanged();
+
             }
 
         });
 
-        Button pfeilRechts= findViewById(R.id.buttonPfeilRechts);
+        Button pfeilRechts = findViewById(R.id.buttonPfeilRechts);
         pfeilRechts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,14 +64,14 @@ public class MainActivity extends AppCompatActivity {
 
                 textMonat.setText(getMonthFromVal(geaendertesDatum.getMonthValue()));
                 textJahr.setText("" + geaendertesDatum.getYear());
+
+                MonatskalenderAdapter monatskalenderAdapter = (MonatskalenderAdapter)kalendermonat.getAdapter();
+                monatskalenderAdapter.setNewDataset(geaendertesDatum);
+                kalendermonat.getAdapter().notifyDataSetChanged();
+
+
             }
         });
-
-        // TageTabelle bearbeiten
-        RecyclerView kalendermonat = findViewById(R.id.tagetabelle);
-//        kalendermonat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        kalendermonat.setLayoutManager(new GridLayoutManager(this, 7));
-        kalendermonat.setAdapter(new MonatskalenderAdapter());
 
 
     }
@@ -69,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Diese Methode gibt den Monatsnahmen aus dem Value (Int) zurück.
      * 1~Jan to 12~Dez.
+     *
      * @param monthValue Interger Repräsentiert 1 bis 12 Monatsnamen
      * @return Monatsnamen
      */
