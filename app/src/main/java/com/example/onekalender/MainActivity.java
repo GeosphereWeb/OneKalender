@@ -2,6 +2,8 @@ package com.example.onekalender;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         // TageTabelle bearbeiten
         RecyclerView kalendermonat = findViewById(R.id.tagetabelle);
+//        kalendermonat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        kalendermonat.setLayoutManager(new GridLayoutManager(this, 7));
         kalendermonat.setAdapter(new MonatskalenderAdapter());
 
 

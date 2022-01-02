@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/kalendertag"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textViewTagesdatum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Alma ist ein Borstenschwein" />
+        android:gravity="center_horizontal|center_vertical"
+        android:text="31"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewTagesDatText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>
